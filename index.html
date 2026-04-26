@@ -1,68 +1,785 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android Developer Portfolio</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; color: #333; background-color: #f4f4f9; }
-        header { background: #3d5afe; color: white; padding: 2rem 0; text-align: center; }
-        .container { width: 80%; margin: auto; overflow: hidden; padding: 2rem 0; }
-        .card { background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1, h2 { margin-bottom: 0.5rem; }
-        .skills span { background: #eee; padding: 5px 10px; border-radius: 5px; margin-right: 5px; display: inline-block; margin-top: 5px; }
-        .project-link { display: inline-block; margin-top: 10px; color: #3d5afe; text-decoration: none; font-weight: bold; }
-        footer { text-align: center; padding: 2rem; background: #333; color: white; margin-top: 2rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MD Siddiqur Rahman - Android Developer. Kotlin, Jetpack Compose, MVVM, Firebase.">
+<title>Siddiqur Rahman | Android Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080818;--bg2:#0d0d24;--card:rgba(255,255,255,.04);--cb:rgba(255,255,255,.08);
+  --t:#e8e8ff;--t2:#8888b0;
+  --p:#7b5eff;--p2:#00d4aa;--p3:#ff6b6b;
+  --grad:linear-gradient(135deg,#7b5eff,#00d4aa);
+  --r:16px;--tr:.3s cubic-bezier(.4,0,.2,1)
+}
+[data-theme=light]{--bg:#f4f4ff;--bg2:#ebebfa;--card:rgba(255,255,255,.8);--cb:rgba(0,0,0,.08);--t:#1a1a2e;--t2:#5a5a80}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--p);border-radius:3px}
+
+/* CURSOR */
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);z-index:9999}
+.cur-dot{width:8px;height:8px;background:var(--p);transition:transform .1s}
+.cur-ring{width:36px;height:36px;border:2px solid rgba(123,94,255,.4);z-index:9998;transition:width .3s,height .3s,border-color .3s}
+.cur-ring.h{width:52px;height:52px;border-color:var(--p2)}
+
+/* PRELOADER */
+#pre{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .5s,visibility .5s}
+#pre.out{opacity:0;visibility:hidden}
+.dots{display:flex;gap:8px}
+.dots span{width:12px;height:12px;border-radius:50%;animation:bop .6s ease-in-out infinite}
+.dots span:nth-child(1){background:var(--p)}
+.dots span:nth-child(2){background:var(--p2);animation-delay:.1s}
+.dots span:nth-child(3){background:var(--p3);animation-delay:.2s}
+@keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-16px)}}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:20px 0;transition:var(--tr)}
+nav.sc{background:rgba(8,8,24,.88);backdrop-filter:blur(20px);padding:12px 0;border-bottom:1px solid var(--cb)}
+[data-theme=light] nav.sc{background:rgba(244,244,255,.88)}
+.ni{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+.nlogo{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nlinks{display:flex;gap:2rem;list-style:none}
+.nlinks a{color:var(--t2);text-decoration:none;font-size:.9rem;font-weight:500;transition:var(--tr);position:relative}
+.nlinks a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--grad);border-radius:2px;transition:width var(--tr)}
+.nlinks a:hover,.nlinks a.on{color:var(--t)}
+.nlinks a:hover::after,.nlinks a.on::after{width:100%}
+.na{display:flex;align-items:center;gap:1rem}
+.tbtn{background:var(--card);border:1px solid var(--cb);color:var(--t);width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);font-size:.95rem}
+.tbtn:hover{background:var(--p);border-color:var(--p)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+.hbg span{width:24px;height:2px;background:var(--t);border-radius:2px;transition:var(--tr)}
+.hbg.op span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hbg.op span:nth-child(2){opacity:0}
+.hbg.op span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* MOBILE NAV */
+.mnav{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:rgba(8,8,24,.97);backdrop-filter:blur(20px);border-left:1px solid var(--cb);z-index:999;padding:100px 2rem 2rem;transition:right .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:1.5rem}
+.mnav.op{right:0}
+.mnav a{color:var(--t2);text-decoration:none;font-size:1.1rem;font-weight:500;padding:.5rem 0;border-bottom:1px solid var(--cb);transition:var(--tr)}
+.mnav a:hover{color:var(--t);padding-left:.75rem}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;opacity:0;visibility:hidden;transition:var(--tr)}
+.ov.on{opacity:1;visibility:visible}
+
+/* LAYOUT */
+section{padding:100px 0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+.sh{text-align:center;margin-bottom:4rem}
+.stag{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--p);background:rgba(123,94,255,.12);padding:6px 16px;border-radius:20px;margin-bottom:1rem}
+.stit{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:.75rem}
+.stit span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sdesc{color:var(--t2);max-width:500px;margin:0 auto;font-size:.95rem;line-height:1.7}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0}
+#pc{position:absolute;inset:0;z-index:0}
+.glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.g1{width:600px;height:600px;background:rgba(123,94,255,.14);top:-200px;right:-150px}
+.g2{width:500px;height:500px;background:rgba(0,212,170,.09);bottom:-150px;left:-100px}
+.hc{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:80px 2rem 0;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+.hgreet{display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--cb);padding:8px 18px;border-radius:30px;font-size:.82rem;color:var(--t2);margin-bottom:1.5rem}
+.hdot{width:8px;height:8px;border-radius:50%;background:var(--p2);box-shadow:0 0 8px var(--p2);animation:glow2 2s ease-in-out infinite}
+@keyframes glow2{0%,100%{box-shadow:0 0 5px var(--p2)}50%{box-shadow:0 0 20px var(--p2),0 0 40px var(--p2)}}
+.hname{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.1;margin-bottom:.5rem}
+.hname span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hrole{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--t2);margin-bottom:1.5rem;min-height:2em}
+.hrole #typed{color:var(--p);font-weight:600}
+.hbio{color:var(--t2);max-width:480px;line-height:1.8;margin-bottom:2.5rem;font-size:1rem}
+.hbtns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-weight:600;font-size:.9rem;text-decoration:none;transition:var(--tr);cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.bp{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(123,94,255,.4)}
+.bp:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(123,94,255,.6)}
+.bo{background:transparent;color:var(--t);border:2px solid var(--cb)}
+.bo:hover{border-color:var(--p);color:var(--p);transform:translateY(-2px)}
+.hstats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--cb)}
+.stat .n{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat .l{font-size:.75rem;color:var(--t2);margin-top:4px;letter-spacing:.5px}
+
+/* HERO VISUAL */
+.hv{display:flex;align-items:center;justify-content:center;position:relative}
+.haw{position:relative;width:320px;height:320px}
+.har{position:absolute;inset:-22px;border:2px dashed rgba(123,94,255,.25);border-radius:50%;animation:spin 20s linear infinite}
+.har::before{content:'';position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--p);transform:translateX(-50%)}
+.har2{position:absolute;inset:-44px;border:2px dashed rgba(0,212,170,.15);border-radius:50%;animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ha{width:320px;height:320px;border-radius:50%;background:linear-gradient(135deg,var(--bg2),var(--bg));border:3px solid var(--cb);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:7rem;color:var(--p);position:relative;z-index:1}
+.ha img{width:100%;height:100%;object-fit:cover}
+.hbadge{position:absolute;background:rgba(13,13,36,.85);border:1px solid var(--cb);backdrop-filter:blur(12px);padding:10px 16px;border-radius:12px;display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:500;white-space:nowrap;animation:fl 3s ease-in-out infinite}
+.hbadge:nth-child(1){bottom:20px;left:-60px;animation-delay:0s}
+.hbadge:nth-child(2){top:30px;right:-50px;animation-delay:1.5s}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.sci{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t2);font-size:.72rem;z-index:1;animation:fiu 1s ease 2s both}
+.sl{width:1px;height:40px;background:var(--p);animation:sd 2s ease-in-out infinite}
+@keyframes sd{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fiu{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.ag{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
+.aiw{position:relative}
+.ai{width:100%;aspect-ratio:4/5;border-radius:24px;background:linear-gradient(135deg,rgba(123,94,255,.18),rgba(0,212,170,.08));border:1px solid var(--cb);display:flex;align-items:center;justify-content:center;font-size:6rem;color:var(--p);overflow:hidden;position:relative}
+.ai img{width:100%;height:100%;object-fit:cover}
+.aid1{position:absolute;top:-20px;left:-20px;width:80px;height:80px;border:2px solid rgba(123,94,255,.3);border-radius:12px;z-index:-1}
+.aid2{position:absolute;bottom:-20px;right:-20px;width:70px;height:70px;background:rgba(0,212,170,.1);border-radius:12px;z-index:-1}
+.exp-badge{position:absolute;bottom:-16px;right:-16px;background:var(--p);color:#fff;padding:16px;border-radius:16px;text-align:center;box-shadow:0 8px 30px rgba(123,94,255,.4)}
+.exp-badge .en{font-size:2rem;font-weight:700;line-height:1}
+.exp-badge .el{font-size:.7rem;margin-top:4px;opacity:.9}
+.at h3{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:1rem}
+.at p{color:var(--t2);line-height:1.8;margin-bottom:.9rem;font-size:.95rem}
+.ainfo{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0 2rem}
+.ii .il{font-size:.75rem;color:var(--t2);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.ii .iv{font-weight:500;font-size:.9rem}
+
+/* SKILLS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.sc2{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);padding:2rem;transition:var(--tr)}
+.sc2:hover{border-color:var(--p);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.2)}
+.sci2{width:48px;height:48px;border-radius:12px;background:rgba(123,94,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--p);margin-bottom:1rem}
+.sci2.g{background:rgba(0,212,170,.15);color:var(--p2)}
+.sci2.r{background:rgba(255,107,107,.15);color:var(--p3)}
+.sct{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:1.5rem}
+.si{margin-bottom:.9rem}
+.sih{display:flex;justify-content:space-between;margin-bottom:6px}
+.sin{font-size:.88rem;font-weight:500}
+.sip{font-size:.82rem;color:var(--p);font-weight:600}
+.sb{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.sf{height:100%;border-radius:3px;background:var(--grad);width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.sf.g{background:linear-gradient(90deg,#00d4aa,#00b4f7)}
+.sf.r{background:linear-gradient(90deg,#ff6b6b,#ff8c00)}
+.stags{margin-top:2.5rem;padding:2rem;background:var(--card);border:1px solid var(--cb);border-radius:var(--r);text-align:center}
+.stags h4{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--t2);margin-bottom:1.5rem}
+.tc{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.tg{padding:7px 16px;border-radius:30px;border:1px solid var(--cb);font-size:.82rem;font-weight:500;color:var(--t2);transition:var(--tr);cursor:default}
+.tg:hover{border-color:var(--p);color:var(--p);background:rgba(123,94,255,.1);transform:translateY(-2px)}
+
+/* PROJECTS */
+#projects{background:var(--bg2)}
+.fts{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+.fb{padding:10px 22px;border-radius:30px;border:1px solid var(--cb);background:transparent;color:var(--t2);font-size:.88rem;font-weight:500;cursor:pointer;transition:var(--tr);font-family:'Inter',sans-serif}
+.fb.on,.fb:hover{background:var(--p);border-color:var(--p);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
+.pc2{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);overflow:hidden;transition:var(--tr)}
+.pc2:hover{transform:translateY(-8px);border-color:var(--p);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.pc2.hid{display:none}
+.pi{height:190px;background:linear-gradient(135deg,rgba(123,94,255,.18),rgba(0,212,170,.08));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+.pi::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(8,8,24,.7))}
+.pb{padding:1.5rem}
+.pts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.75rem}
+.pt{font-size:.68rem;font-weight:600;letter-spacing:.5px;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.ta{background:rgba(123,94,255,.15);color:var(--p)}
+.tf{background:rgba(0,212,170,.15);color:var(--p2)}
+.tfi{background:rgba(255,107,107,.15);color:var(--p3)}
+.tw{background:rgba(255,140,0,.15);color:#ff8c00}
+.ptit{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+.pdesc{color:var(--t2);font-size:.88rem;line-height:1.7;margin-bottom:1.25rem}
+.pls{display:flex;gap:.6rem}
+.pl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:500;text-decoration:none;transition:var(--tr)}
+.plg{background:rgba(255,255,255,.06);color:var(--t);border:1px solid var(--cb)}
+.plg:hover{background:rgba(255,255,255,.12)}
+.pld{background:var(--p);color:#fff}
+.pld:hover{background:#6b4eff;transform:translateY(-1px)}
+
+/* TIMELINE */
+.tl{position:relative;max-width:800px;margin:0 auto}
+.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--p),var(--p2));transform:translateX(-50%)}
+.tli{display:flex;width:100%;margin-bottom:3rem;position:relative}
+.tli:nth-child(odd){flex-direction:row-reverse}
+.tlc{width:calc(50% - 30px);background:var(--card);border:1px solid var(--cb);border-radius:var(--r);padding:1.5rem;transition:var(--tr)}
+.tlc:hover{border-color:var(--p);transform:scale(1.02)}
+.tli:nth-child(odd) .tlc{margin-right:30px}
+.tli:nth-child(even) .tlc{margin-left:30px}
+.tld{position:absolute;left:50%;transform:translateX(-50%);width:14px;height:14px;background:var(--p);border:3px solid var(--bg);border-radius:50%;top:24px;z-index:1;box-shadow:0 0 0 4px rgba(123,94,255,.2)}
+.tldate{font-size:.78rem;color:var(--p);font-weight:600;margin-bottom:.4rem}
+.tltit{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.2rem}
+.tlsub{color:var(--t2);font-size:.82rem;margin-bottom:.6rem}
+.tldesc{color:var(--t2);font-size:.83rem;line-height:1.6}
+
+/* CONTACT */
+#contact{background:var(--bg2)}
+.cg{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;align-items:start}
+.ci h3{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;margin-bottom:1rem}
+.ci p{color:var(--t2);line-height:1.8;margin-bottom:2rem;font-size:.95rem}
+.ccs{display:flex;flex-direction:column;gap:.75rem}
+.cc{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--cb);border-radius:12px;padding:1rem 1.25rem;text-decoration:none;color:var(--t);transition:var(--tr)}
+.cc:hover{border-color:var(--p);transform:translateX(6px)}
+.cci{width:44px;height:44px;border-radius:10px;background:rgba(123,94,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--p);flex-shrink:0}
+.cct{flex:1}
+.ccl{font-size:.72rem;color:var(--t2);margin-bottom:2px}
+.ccv{font-size:.88rem;font-weight:500}
+.socs{display:flex;gap:.6rem;margin-top:1.5rem}
+.sb2{width:44px;height:44px;border-radius:10px;background:var(--card);border:1px solid var(--cb);color:var(--t2);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;transition:var(--tr)}
+.sb2:hover{background:var(--p);border-color:var(--p);color:#fff;transform:translateY(-3px)}
+.cf{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);padding:2.5rem}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem}
+.fg label{font-size:.82rem;font-weight:500;color:var(--t2)}
+.fg input,.fg textarea{background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:10px;padding:12px 16px;color:var(--t);font-family:'Inter',sans-serif;font-size:.88rem;transition:var(--tr);outline:none;resize:none}
+[data-theme=light] .fg input,[data-theme=light] .fg textarea{background:rgba(0,0,0,.04)}
+.fg input:focus,.fg textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(123,94,255,.15)}
+.fg textarea{min-height:130px}
+.fsub{width:100%;padding:14px;border-radius:50px;border:none;background:var(--grad);color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif}
+.fsub:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(123,94,255,.5)}
+.fsub:disabled{opacity:.7;cursor:not-allowed}
+#fok{display:none;text-align:center;padding:2rem;color:var(--p2)}
+#fok i{font-size:3rem;margin-bottom:1rem;display:block}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text-align:center}
+.fi{max-width:1200px;margin:0 auto;padding:0 2rem}
+.flogo{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;display:inline-block}
+.flinks{display:flex;gap:1.5rem;justify-content:center;list-style:none;margin-bottom:1.5rem;flex-wrap:wrap}
+.flinks a{color:var(--t2);text-decoration:none;font-size:.88rem;transition:var(--tr)}
+.flinks a:hover{color:var(--p)}
+.fcp{color:var(--t2);font-size:.82rem}
+.fcp span{color:var(--p3)}
+
+/* BACK TOP */
+.bt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;opacity:0;visibility:hidden;transition:var(--tr);box-shadow:0 4px 20px rgba(123,94,255,.4);z-index:100}
+.bt.on{opacity:1;visibility:visible}
+.bt:hover{transform:translateY(-3px)}
+
+/* SCROLL ANIM */
+.fu{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.fl2{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.fr2{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.fu.vis,.fl2.vis,.fr2.vis{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hc{grid-template-columns:1fr;text-align:center}
+  .hv{display:none}
+  .hbtns{justify-content:center}
+  .hstats{justify-content:center}
+  .hbio{margin:0 auto 2.5rem}
+  .hgreet{display:inline-flex}
+  .ag{grid-template-columns:1fr}
+  .aiw{max-width:340px;margin:0 auto 2rem}
+  .cg{grid-template-columns:1fr}
+  .tl::before{left:20px}
+  .tli,.tli:nth-child(odd){flex-direction:column;padding-left:50px}
+  .tlc,.tli:nth-child(odd) .tlc,.tli:nth-child(even) .tlc{width:100%;margin:0}
+  .tld{left:20px}
+  .fr{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nlinks{display:none}
+  .hbg{display:flex}
+  .pg{grid-template-columns:1fr}
+  section{padding:70px 0}
+}
+@media(max-width:480px){
+  .hstats{flex-direction:column;gap:1rem;align-items:center}
+  .ainfo{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-<header>
-    <h1>আপনার নাম (Android Developer)</h1>
-    <p>Kotlin | Java | Jetpack Compose | MVVM</p>
-</header>
+<div class="cur-dot" id="cd"></div>
+<div class="cur-ring" id="cr"></div>
 
-<div class="container">
-    <section id="about" class="card">
-        <h2>আমার সম্পর্কে</h2>
-        <p>আমি একজন অ্যান্ড্রয়েড ডেভেলপার। আমি বিভিন্ন প্রজেক্ট ভিত্তিক অ্যাপ তৈরিতে দক্ষ। কোড করার পাশাপাশি আমি ইউজার এক্সপেরিয়েন্সের দিকেও খেয়াল রাখি।</p>
-    </section>
+<div id="pre"><div class="dots"><span></span><span></span><span></span></div></div>
 
-    <section id="skills" class="card">
-        <h2>স্কিলস</h2>
-        <div class="skills">
-            <span>Kotlin</span> <span>Java</span> <span>Android SDK</span> <span>Retrofit</span> 
-            <span>Room Database</span> <span>MVVM</span> <span>Git/GitHub</span> <span>Firebase</span>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>আমার প্রজেক্টগুলো</h2>
-        
-        <div class="card">
-            <h3>E-commerce App</h3>
-            <p>একটি পূর্ণাঙ্গ কেনাকাটার অ্যাপ যেখানে Firebase এবং Retrofit ব্যবহার করা হয়েছে।</p>
-            <a href="GitHub-Link-Here" class="project-link" target="_blank">View on GitHub →</a>
-        </div>
-
-        <div class="card">
-            <h3>Weather App</h3>
-            <p>OpenWeather API ব্যবহার করে রিয়েল-টাইম ওয়েদার আপডেট দেখানোর অ্যাপ।</p>
-            <a href="GitHub-Link-Here" class="project-link" target="_blank">View on GitHub →</a>
-        </div>
-
-        </section>
-
-    <section id="contact" class="card">
-        <h2>যোগাযোগ</h2>
-        <p>ইমেইল: example@email.com</p>
-        <p>লিঙ্কডইন: <a href="#">linkedin.com/in/yourname</a></p>
-    </section>
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <a href="#hero" class="nlogo">SR<span style="-webkit-text-fill-color:var(--p2)">.</span></a>
+    <ul class="nlinks">
+      <li><a href="#about" class="nl">About</a></li>
+      <li><a href="#skills" class="nl">Skills</a></li>
+      <li><a href="#projects" class="nl">Projects</a></li>
+      <li><a href="#experience" class="nl">Experience</a></li>
+      <li><a href="#contact" class="nl">Contact</a></li>
+    </ul>
+    <div class="na">
+      <button class="tbtn" id="thm" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+      <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div class="mnav" id="mn">
+  <a href="#about" class="ml">About</a>
+  <a href="#skills" class="ml">Skills</a>
+  <a href="#projects" class="ml">Projects</a>
+  <a href="#experience" class="ml">Experience</a>
+  <a href="#contact" class="ml">Contact</a>
 </div>
+<div class="ov" id="ov"></div>
 
+<!-- HERO -->
+<section id="hero">
+  <canvas id="pc"></canvas>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="hc">
+    <div>
+      <div class="hgreet"><span class="hdot"></span>Available for opportunities</div>
+      <h1 class="hname">Siddiqur<br><span>Rahman</span></h1>
+      <p class="hrole"><span id="typed"></span></p>
+      <p class="hbio">Passionate Android developer crafting beautiful, performant mobile experiences. Specialized in Kotlin, Jetpack Compose &amp; modern Android architecture.</p>
+      <div class="hbtns">
+        <a href="#projects" class="btn bp"><i class="fas fa-rocket"></i> View Projects</a>
+        <a href="#contact" class="btn bo"><i class="fas fa-paper-plane"></i> Hire Me</a>
+      </div>
+      <div class="hstats">
+        <div class="stat"><div class="n" data-count="10">0+</div><div class="l">Projects Done</div></div>
+        <div class="stat"><div class="n" data-count="3">0+</div><div class="l">Years Learning</div></div>
+        <div class="stat"><div class="n" data-count="8">0+</div><div class="l">Technologies</div></div>
+      </div>
+    </div>
+    <div class="hv">
+      <div class="haw">
+        <div class="har2"></div>
+        <div class="har"></div>
+        <div class="ha"><i class="fas fa-user"></i>
+          <!-- Replace with: <img src="your-photo.jpg" alt="Siddiqur Rahman"> -->
+        </div>
+        <div class="hbadge"><span>📱</span> Android Dev</div>
+        <div class="hbadge"><span>⚡</span> Kotlin Expert</div>
+      </div>
+    </div>
+  </div>
+  <div class="sci"><span>Scroll</span><div class="sl"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sh fu"><div class="stag">About Me</div><h2 class="stit">Who I <span>Am</span></h2></div>
+    <div class="ag">
+      <div class="aiw fl2">
+        <div class="aid1"></div><div class="aid2"></div>
+        <div class="ai"><i class="fas fa-user-circle"></i>
+          <!-- Replace with: <img src="your-photo.jpg" alt="Siddiqur Rahman"> -->
+        </div>
+        <div class="exp-badge"><div class="en">3+</div><div class="el">Years<br>Coding</div></div>
+      </div>
+      <div class="at fr2">
+        <h3>Android Developer &amp; Mobile Enthusiast</h3>
+        <p>I'm MD Siddiqur Rahman, a passionate Android developer studying Computer Science at Daffodil International University. I build clean, scalable mobile applications with a focus on user experience and modern architecture.</p>
+        <p>My journey started with Java and Android SDK. I've moved to Kotlin-first development with Jetpack Compose, MVVM architecture, and Firebase backend services. I love clean code and pixel-perfect UIs.</p>
+        <div class="ainfo">
+          <div class="ii"><div class="il">Name</div><div class="iv">MD Siddiqur Rahman</div></div>
+          <div class="ii"><div class="il">University</div><div class="iv">Daffodil Int'l University</div></div>
+          <div class="ii"><div class="il">Specialty</div><div class="iv">Android Development</div></div>
+          <div class="ii"><div class="il">Status</div><div class="iv" style="color:var(--p2)">✓ Open to Work</div></div>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="#contact" class="btn bp"><i class="fas fa-envelope"></i> Contact Me</a>
+          <a href="#" class="btn bo"><i class="fas fa-download"></i> Download CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sh fu"><div class="stag">Expertise</div><h2 class="stit">My <span>Skills</span></h2><p class="sdesc">Technologies I use to build great Android applications</p></div>
+    <div class="sg">
+      <div class="sc2 fu">
+        <div class="sci2"><i class="fab fa-android"></i></div>
+        <div class="sct">Android Development</div>
+        <div>
+          <div class="si"><div class="sih"><span class="sin">Kotlin</span><span class="sip">90%</span></div><div class="sb"><div class="sf" data-w="90"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Jetpack Compose</span><span class="sip">80%</span></div><div class="sb"><div class="sf" data-w="80"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Android SDK</span><span class="sip">85%</span></div><div class="sb"><div class="sf" data-w="85"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Java</span><span class="sip">75%</span></div><div class="sb"><div class="sf" data-w="75"></div></div></div>
+        </div>
+      </div>
+      <div class="sc2 fu" style="transition-delay:.1s">
+        <div class="sci2 g"><i class="fas fa-layer-group"></i></div>
+        <div class="sct">Architecture &amp; Backend</div>
+        <div>
+          <div class="si"><div class="sih"><span class="sin">MVVM</span><span class="sip" style="color:var(--p2)">85%</span></div><div class="sb"><div class="sf g" data-w="85"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Firebase</span><span class="sip" style="color:var(--p2)">80%</span></div><div class="sb"><div class="sf g" data-w="80"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Room Database</span><span class="sip" style="color:var(--p2)">78%</span></div><div class="sb"><div class="sf g" data-w="78"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Retrofit / REST</span><span class="sip" style="color:var(--p2)">82%</span></div><div class="sb"><div class="sf g" data-w="82"></div></div></div>
+        </div>
+      </div>
+      <div class="sc2 fu" style="transition-delay:.2s">
+        <div class="sci2 r"><i class="fas fa-tools"></i></div>
+        <div class="sct">Tools &amp; Cross-Platform</div>
+        <div>
+          <div class="si"><div class="sih"><span class="sin">Git / GitHub</span><span class="sip" style="color:var(--p3)">80%</span></div><div class="sb"><div class="sf r" data-w="80"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Dart / Flutter</span><span class="sip" style="color:var(--p3)">70%</span></div><div class="sb"><div class="sf r" data-w="70"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Coroutines / Flow</span><span class="sip" style="color:var(--p3)">75%</span></div><div class="sb"><div class="sf r" data-w="75"></div></div></div>
+          <div class="si"><div class="sih"><span class="sin">Android Studio</span><span class="sip" style="color:var(--p3)">88%</span></div><div class="sb"><div class="sf r" data-w="88"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="stags fu" style="margin-top:2rem;transition-delay:.3s">
+      <h4>All Technologies</h4>
+      <div class="tc">
+        <span class="tg">Kotlin</span><span class="tg">Java</span><span class="tg">Dart</span>
+        <span class="tg">Flutter</span><span class="tg">Jetpack Compose</span><span class="tg">Android SDK</span>
+        <span class="tg">MVVM</span><span class="tg">Clean Architecture</span><span class="tg">Firebase</span>
+        <span class="tg">Firestore</span><span class="tg">Retrofit</span><span class="tg">OkHttp</span>
+        <span class="tg">Room DB</span><span class="tg">Coroutines</span><span class="tg">Flow</span>
+        <span class="tg">Hilt / Dagger</span><span class="tg">Git</span><span class="tg">Postman</span>
+        <span class="tg">Android Studio</span><span class="tg">GitHub Actions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sh fu"><div class="stag">Portfolio</div><h2 class="stit">Featured <span>Projects</span></h2><p class="sdesc">Real apps built with production-quality code and architecture</p></div>
+    <div class="fts fu">
+      <button class="fb on" data-f="all">All</button>
+      <button class="fb" data-f="android">Android</button>
+      <button class="fb" data-f="flutter">Flutter</button>
+      <button class="fb" data-f="firebase">Firebase</button>
+    </div>
+    <div class="pg">
+      <div class="pc2 fu" data-cat="android firebase">
+        <div class="pi">🛒</div>
+        <div class="pb">
+          <div class="pts"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span></div>
+          <div class="ptit">E-Commerce App</div>
+          <p class="pdesc">Full-featured shopping app with product catalog, cart, Firebase Auth, Firestore, and Retrofit API integration. MVVM architecture.</p>
+          <div class="pls"><a href="https://github.com/siddiqurcse" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+        </div>
+      </div>
+      <div class="pc2 fu" data-cat="android" style="transition-delay:.1s">
+        <div class="pi">🌤️</div>
+        <div class="pb">
+          <div class="pts"><span class="pt ta">Android</span></div>
+          <div class="ptit">Weather App</div>
+          <p class="pdesc">Real-time weather using OpenWeather API. Location-based forecast, hourly &amp; weekly weather, Retrofit + MVVM architecture.</p>
+          <div class="pls"><a href="https://github.com/siddiqurcse" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+        </div>
+      </div>
+      <div class="pc2 fu" data-cat="flutter firebase" style="transition-delay:.2s">
+        <div class="pi">🏘️</div>
+        <div class="pb">
+          <div class="pts"><span class="pt tf">Flutter</span><span class="pt tfi">Firebase</span></div>
+          <div class="ptit">Society Management App</div>
+          <p class="pdesc">Complete society management system with member registration, role-based access, Firestore backend, and Bengali language UI.</p>
+          <div class="pls"><a href="https://github.com/siddiqurcse" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+        </div>
+      </div>
+      <div class="pc2 fu" data-cat="android" style="transition-delay:.3s">
+        <div class="pi">📝</div>
+        <div class="pb">
+          <div class="pts"><span class="pt ta">Android</span></div>
+          <div class="ptit">Notes App</div>
+          <p class="pdesc">Clean notes app with Room Database, Kotlin Coroutines, LiveData, and Jetpack Compose UI. Offline-first architecture.</p>
+          <div class="pls"><a href="https://github.com/siddiqurcse" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sh fu"><div class="stag">Journey</div><h2 class="stit">Education &amp; <span>Experience</span></h2></div>
+    <div class="tl">
+      <div class="tli fu">
+        <div class="tlc">
+          <div class="tldate">2021 — Present</div>
+          <div class="tltit">BSc in Computer Science &amp; Engineering</div>
+          <div class="tlsub">Daffodil International University</div>
+          <div class="tldesc">Studying core CS fundamentals: algorithms, data structures, OOP, database systems, and software engineering principles.</div>
+        </div>
+        <div class="tld"></div>
+      </div>
+      <div class="tli fu" style="transition-delay:.1s">
+        <div class="tlc">
+          <div class="tldate">2022 — Present</div>
+          <div class="tltit">Android Developer</div>
+          <div class="tlsub">Freelance &amp; Personal Projects</div>
+          <div class="tldesc">Built multiple Android apps using Kotlin, MVVM, Firebase, and Jetpack Compose. Focused on clean architecture and material design.</div>
+        </div>
+        <div class="tld"></div>
+      </div>
+      <div class="tli fu" style="transition-delay:.2s">
+        <div class="tlc">
+          <div class="tldate">2023</div>
+          <div class="tltit">Flutter &amp; Cross-Platform Development</div>
+          <div class="tlsub">Personal Learning</div>
+          <div class="tldesc">Expanded to Flutter/Dart for cross-platform mobile development. Built society management app with Provider state management and Firebase.</div>
+        </div>
+        <div class="tld"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sh fu"><div class="stag">Get In Touch</div><h2 class="stit">Let's <span>Connect</span></h2><p class="sdesc">Open to Android roles, freelance projects, and collaborations</p></div>
+    <div class="cg">
+      <div class="ci fl2">
+        <h3>Ready to collaborate?</h3>
+        <p>I'm currently open to Android development opportunities and freelance projects. Drop me a message and I'll respond within 24 hours.</p>
+        <div class="ccs">
+          <a href="mailto:siddiqur15-12171@diu.edu.bd" class="cc">
+            <div class="cci"><i class="fas fa-envelope"></i></div>
+            <div class="cct"><div class="ccl">Email</div><div class="ccv">siddiqur15-12171@diu.edu.bd</div></div>
+            <i class="fas fa-arrow-right" style="color:var(--t2)"></i>
+          </a>
+          <a href="https://linkedin.com/in/siddiqurcse/" target="_blank" class="cc">
+            <div class="cci" style="background:rgba(0,212,170,.15);color:var(--p2)"><i class="fab fa-linkedin"></i></div>
+            <div class="cct"><div class="ccl">LinkedIn</div><div class="ccv">linkedin.com/in/siddiqurcse</div></div>
+            <i class="fas fa-arrow-right" style="color:var(--t2)"></i>
+          </a>
+          <a href="https://github.com/siddiqurcse" target="_blank" class="cc">
+            <div class="cci" style="background:rgba(255,107,107,.15);color:var(--p3)"><i class="fab fa-github"></i></div>
+            <div class="cct"><div class="ccl">GitHub</div><div class="ccv">github.com/siddiqurcse</div></div>
+            <i class="fas fa-arrow-right" style="color:var(--t2)"></i>
+          </a>
+        </div>
+        <div class="socs">
+          <a href="https://github.com/siddiqurcse" class="sb2" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/siddiqurcse/" class="sb2" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:siddiqur15-12171@diu.edu.bd" class="sb2"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="cf fr2">
+        <!-- Web3Forms: get free access key at web3forms.com using mdsiddiqur.cse@gmail.com -->
+        <form id="cform" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <input type="hidden" name="from_name" value="Portfolio Contact Form">
+          <input type="checkbox" name="botcheck" style="display:none">
+          <div class="fr">
+            <div class="fg"><label>First Name</label><input type="text" name="firstName" placeholder="John" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" name="lastName" placeholder="Doe" required></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
+          <div class="fg"><label>Subject</label><input type="text" name="subject" placeholder="Project Inquiry" required></div>
+          <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell me about your project..." required></textarea></div>
+          <button type="submit" class="fsub" id="fsbtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+        <div id="fok">
+          <i class="fas fa-check-circle"></i>
+          <h3>Message Sent!</h3>
+          <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-    <p>&copy; 2024 Your Name. All rights reserved.</p>
+  <div class="fi">
+    <div class="flogo">SR.</div>
+    <ul class="flinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="fcp">© 2025 Siddiqur Rahman. Built with <span>♥</span> for the web.</p>
+  </div>
 </footer>
 
+<button class="bt" id="btt"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+/* ── PRELOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('pre').classList.add('out');
+    initScrollAnim();
+    animateCounters();
+  }, 700);
+});
+
+/* ── CURSOR ── */
+const cd = document.getElementById('cd'), cr = document.getElementById('cr');
+let mx = 0, my = 0, rx = 0, ry = 0;
+if (window.matchMedia('(pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+  });
+  (function animR() {
+    rx += (mx - rx) * .14; ry += (my - ry) * .14;
+    cr.style.left = rx + 'px'; cr.style.top = ry + 'px';
+    requestAnimationFrame(animR);
+  })();
+  document.querySelectorAll('a,button,.pc2,.cc,.tg,.sc2').forEach(el => {
+    el.addEventListener('mouseenter', () => cr.classList.add('h'));
+    el.addEventListener('mouseleave', () => cr.classList.remove('h'));
+  });
+} else {
+  cd.style.display = 'none'; cr.style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+
+/* ── TYPED.JS ── */
+new Typed('#typed', {
+  strings: ['Android Developer','Kotlin Enthusiast','Jetpack Compose Dev','Flutter Developer','Mobile UI Builder'],
+  typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true
+});
+
+/* ── NAV ── */
+const navbar = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nl');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('sc', window.scrollY > 50);
+  document.getElementById('btt').classList.toggle('on', window.scrollY > 500);
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+  navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+});
+
+/* ── MOBILE NAV ── */
+const hbg = document.getElementById('hbg'), mn = document.getElementById('mn'), ov = document.getElementById('ov');
+function closeMn() { hbg.classList.remove('op'); mn.classList.remove('op'); ov.classList.remove('on'); document.body.style.overflow = ''; }
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('op'); mn.classList.toggle('op'); ov.classList.toggle('on');
+  document.body.style.overflow = mn.classList.contains('op') ? 'hidden' : '';
+});
+ov.addEventListener('click', closeMn);
+document.querySelectorAll('.ml').forEach(a => a.addEventListener('click', closeMn));
+
+/* ── THEME ── */
+let dark = true;
+document.getElementById('thm').addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  document.getElementById('thm').innerHTML = dark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+});
+
+/* ── BACK TO TOP ── */
+document.getElementById('btt').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── PROJECT FILTER ── */
+document.querySelectorAll('.fb').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const f = btn.dataset.f;
+    document.querySelectorAll('.pc2').forEach(card => {
+      const show = f === 'all' || card.dataset.cat.includes(f);
+      card.classList.toggle('hid', !show);
+      if (show) {
+        card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity .4s,transform .4s';
+          card.style.opacity = '1'; card.style.transform = 'none';
+        });
+      }
+    });
+  });
+});
+
+/* ── SCROLL ANIMATIONS ── */
+function initScrollAnim() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.sf').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fu,.fl2,.fr2').forEach(el => obs.observe(el));
+}
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = +el.dataset.count;
+    let cur = 0;
+    const step = target / 50;
+    const t = setInterval(() => {
+      cur += step;
+      if (cur >= target) { el.textContent = target + '+'; clearInterval(t); }
+      else el.textContent = Math.floor(cur) + '+';
+    }, 25);
+  });
+}
+
+/* ── CANVAS PARTICLES ── */
+const canvas = document.getElementById('pc');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+class P {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W; this.y = Math.random() * H;
+    this.vx = (Math.random() - .5) * .45; this.vy = (Math.random() - .5) * .45;
+    this.r = Math.random() * 1.8 + .8;
+    this.o = Math.random() * .45 + .1;
+    this.h = Math.random() > .5 ? 252 : 168;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.h},80%,65%,${this.o})`; ctx.fill();
+  }
+}
+for (let i = 0; i < 80; i++) pts.push(new P());
+(function anim() {
+  ctx.clearRect(0, 0, W, H);
+  pts.forEach(p => { p.update(); p.draw(); });
+  for (let i = 0; i < pts.length; i++)
+    for (let j = i + 1; j < pts.length; j++) {
+      const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 140) {
+        ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.strokeStyle = `rgba(123,94,255,${.12*(1-d/140)})`; ctx.lineWidth = .5; ctx.stroke();
+      }
+    }
+  requestAnimationFrame(anim);
+})();
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* ── CONTACT FORM ── */
+document.getElementById('cform').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('fsbtn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; btn.disabled = true;
+  try {
+    const res = await fetch(e.target.action, {
+      method: 'POST', body: new FormData(e.target), headers: { Accept: 'application/json' }
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('cform').style.display = 'none';
+      document.getElementById('fok').style.display = 'block';
+    } else {
+      throw new Error(data.message || 'Failed');
+    }
+  } catch {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message'; btn.disabled = false;
+    alert('Something went wrong. Email me directly at mdsiddiqur.cse@gmail.com');
+  }
+});
+</script>
 </body>
 </html>
