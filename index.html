@@ -262,6 +262,31 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
 .fcp{color:var(--t2);font-size:.82rem}
 .fcp span{color:var(--p3)}
 
+/* CERTIFICATIONS */
+#certifications{background:var(--bg2)}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem}
+.cert-card{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);overflow:hidden;transition:var(--tr);cursor:pointer;position:relative}
+.cert-card:hover{transform:translateY(-10px);border-color:var(--p);box-shadow:0 24px 64px rgba(123,94,255,.28)}
+.cert-img-wrap{height:210px;overflow:hidden;position:relative;background:linear-gradient(135deg,rgba(123,94,255,.18),rgba(0,212,170,.08))}
+.cert-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.cert-card:hover .cert-img-wrap img{transform:scale(1.07)}
+.cert-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5.5rem;transition:transform .5s ease}
+.cert-card:hover .cert-ph{transform:scale(1.12)}
+.cert-ribbon{position:absolute;top:16px;left:0;background:var(--p);color:#fff;font-size:.63rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 16px 5px 12px;border-radius:0 20px 20px 0;z-index:2;box-shadow:0 3px 12px rgba(123,94,255,.45)}
+.cert-ribbon.teal{background:var(--p2);color:#080818;box-shadow:0 3px 12px rgba(0,212,170,.45)}
+.cert-eye{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.48);opacity:0;transition:opacity .35s;z-index:2}
+.cert-eye i{font-size:2.8rem;color:#fff;transform:scale(.5);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.cert-card:hover .cert-eye{opacity:1}
+.cert-card:hover .cert-eye i{transform:scale(1)}
+.cert-body{padding:1.5rem}
+.cert-org{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--p2);margin-bottom:.4rem}
+.cert-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.9rem;line-height:1.35}
+.cert-meta{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+.cert-meta span{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--t2)}
+.cert-meta i{color:var(--p);font-size:.72rem}
+.cert-id{margin-top:.85rem;display:inline-block;font-size:.68rem;padding:3px 11px;border-radius:14px;background:rgba(123,94,255,.1);border:1px solid rgba(123,94,255,.25);color:var(--p);font-family:monospace;letter-spacing:.5px}
+.cert-modal-img{width:100%;border-radius:12px;border:1px solid var(--cb);margin-bottom:1.5rem;display:block}
+
 /* BACK TOP */
 .bt{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;opacity:0;visibility:hidden;transition:var(--tr);box-shadow:0 4px 20px rgba(123,94,255,.4);z-index:100}
 .bt.on{opacity:1;visibility:visible}
@@ -318,6 +343,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
       <li><a href="#skills" class="nl">Skills</a></li>
       <li><a href="#projects" class="nl">Projects</a></li>
       <li><a href="#experience" class="nl">Experience</a></li>
+      <li><a href="#certifications" class="nl">Certifications</a></li>
       <li><a href="#contact" class="nl">Contact</a></li>
     </ul>
     <div class="na">
@@ -331,6 +357,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
   <a href="#skills" class="ml">Skills</a>
   <a href="#projects" class="ml">Projects</a>
   <a href="#experience" class="ml">Experience</a>
+  <a href="#certifications" class="ml">Certifications</a>
   <a href="#contact" class="ml">Contact</a>
 </div>
 <div class="ov" id="ov"></div>
@@ -554,6 +581,56 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
         </div>
         <div class="tld"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="sh fu">
+      <div class="stag">Achievements</div>
+      <h2 class="stit">My <span>Certificates</span></h2>
+      <p class="sdesc">Professional certifications validating my technical expertise</p>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card fu" onclick="openModal('cm-oracle')">
+        <div class="cert-img-wrap">
+          <!-- Replace with: <img src="assets/cert-oracle.jpg" alt="Oracle Certificate"> -->
+          <div class="cert-ph">🗄️</div>
+          <div class="cert-ribbon">IBCS-PRIMAX</div>
+          <div class="cert-eye"><i class="fas fa-expand-alt"></i></div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-org">IBCS-PRIMAX Software (Bangladesh) Ltd.</div>
+          <div class="cert-name">Oracle 11g Forms Developer</div>
+          <div class="cert-meta">
+            <span><i class="fas fa-calendar-alt"></i> Aug 2017 – Nov 2017</span>
+            <span><i class="fas fa-clock"></i> ~3.5 Months</span>
+          </div>
+          <div class="cert-id">I-Certi-5051</div>
+        </div>
+      </div>
+
+      <div class="cert-card fu" style="transition-delay:.15s" onclick="openModal('cm-android')">
+        <div class="cert-img-wrap">
+          <!-- Replace with: <img src="assets/cert-android.jpg" alt="Android Certificate"> -->
+          <div class="cert-ph">📱</div>
+          <div class="cert-ribbon teal">BASIS · SEIP</div>
+          <div class="cert-eye"><i class="fas fa-expand-alt"></i></div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-org">PencilBox Training Institute · BASIS</div>
+          <div class="cert-name">Mobile Application Development – Android</div>
+          <div class="cert-meta">
+            <span><i class="fas fa-calendar-alt"></i> Mar – Jun 2022</span>
+            <span><i class="fas fa-clock"></i> 240 Hours</span>
+          </div>
+          <div class="cert-id">BASIS50/BB8/Mobile4/23</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -838,6 +915,74 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
       </div>
       <div class="modal-actions">
         <a href="https://github.com/siddiqurcse/Madrasha-Management-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CERT MODALS -->
+<div class="modal-ov" id="cm-oracle" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🗄️</span>
+      <button class="modal-close" onclick="closeModalById('cm-oracle')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Oracle 11g Forms Developer</div>
+      <div class="modal-tags"><span class="pt ta">Oracle</span><span class="pt tw">Database</span><span class="pt tfi">Forms</span></div>
+      <!-- Replace with: <img src="assets/cert-oracle.jpg" alt="Oracle Certificate" class="cert-modal-img"> -->
+      <p class="modal-desc">Professional training in Oracle 11g Forms Developer at IBCS-PRIMAX Software (Bangladesh) Ltd., covering Oracle Forms, PL/SQL, database design, and enterprise application development.</p>
+      <div class="modal-section">
+        <h4>Certificate Details</h4>
+        <ul class="modal-features">
+          <li>Issuer: IBCS-PRIMAX Software (Bangladesh) Ltd.</li>
+          <li>Certificate ID: I-Certi-5051</li>
+          <li>Duration: 3rd August 2017 – 12th November 2017</li>
+          <li>Director of Education: Kazi Ashiqur Rahman</li>
+          <li>Instructor: Md. Rafikul Islam</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Skills Covered</h4>
+        <div class="modal-tech">
+          <span class="mtech">Oracle 11g</span><span class="mtech">Oracle Forms</span><span class="mtech">PL/SQL</span>
+          <span class="mtech">SQL</span><span class="mtech">Database Design</span><span class="mtech">Enterprise Apps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="cm-android" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">📱</span>
+      <button class="modal-close" onclick="closeModalById('cm-android')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Mobile Application Development – Android</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tf">Government</span><span class="pt tw">BASIS</span></div>
+      <!-- Replace with: <img src="assets/cert-android.jpg" alt="Android Certificate" class="cert-modal-img"> -->
+      <p class="modal-desc">Awarded by PencilBox Training Institute under the Skills for Employment Investment Program (SEIP), Finance Division, Ministry of Finance, Government of Bangladesh. 240 hours of intensive Android development training.</p>
+      <div class="modal-section">
+        <h4>Certificate Details</h4>
+        <ul class="modal-features">
+          <li>Issuer: PencilBox Training Institute · BASIS (Bangladesh Association of Software &amp; Information Services)</li>
+          <li>Certificate No: BASIS50/BB8/Mobile4/23</li>
+          <li>Registration No: 0400034096</li>
+          <li>Duration: 02 March 2022 – 09 June 2022 (240 hours)</li>
+          <li>Issued: 23 August 2022</li>
+          <li>Program: SEIP, Ministry of Finance, Government of Bangladesh</li>
+          <li>CEO: Khondoker Ali Asgor Pavel · BASIS President: Russell T. Ahmed</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Competencies Covered</h4>
+        <div class="modal-tech">
+          <span class="mtech">Android Development</span><span class="mtech">Java</span><span class="mtech">OOP</span>
+          <span class="mtech">Manage Database</span><span class="mtech">Web Services</span><span class="mtech">Push Notification</span>
+          <span class="mtech">App Signing</span><span class="mtech">Describe OOP</span>
+        </div>
       </div>
     </div>
   </div>
