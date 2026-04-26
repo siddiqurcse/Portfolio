@@ -186,6 +186,28 @@ section{padding:100px 0}
 .pld{background:var(--p);color:#fff}
 .pld:hover{background:#6b4eff;transform:translateY(-1px)}
 
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:5000;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-ov.on{opacity:1;visibility:visible}
+.modal{background:var(--bg2);border:1px solid var(--cb);border-radius:24px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px) scale(.97);transition:transform .3s cubic-bezier(.4,0,.2,1);scrollbar-width:thin}
+.modal-ov.on .modal{transform:none}
+.modal-head{background:linear-gradient(135deg,rgba(123,94,255,.18),rgba(0,212,170,.08));padding:2.5rem 2rem 2rem;text-align:center;position:relative;border-radius:24px 24px 0 0}
+.modal-emoji{font-size:4rem;margin-bottom:1rem;display:block}
+.modal-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid var(--cb);color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:var(--tr)}
+.modal-close:hover{background:var(--p3);border-color:var(--p3);color:#fff}
+.modal-body{padding:2rem}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:.5rem}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
+.modal-desc{color:var(--t2);line-height:1.8;font-size:.95rem;margin-bottom:1.5rem}
+.modal-section{margin-bottom:1.5rem}
+.modal-section h4{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--p);margin-bottom:.75rem;font-weight:600}
+.modal-features{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.modal-features li{display:flex;align-items:flex-start;gap:.6rem;color:var(--t2);font-size:.9rem;line-height:1.6}
+.modal-features li::before{content:'▸';color:var(--p2);flex-shrink:0;margin-top:.1rem}
+.modal-tech{display:flex;flex-wrap:wrap;gap:.5rem}
+.mtech{padding:6px 14px;border-radius:20px;border:1px solid var(--cb);font-size:.8rem;font-weight:500;color:var(--t2);background:rgba(255,255,255,.03)}
+.modal-actions{display:flex;gap:.75rem;margin-top:2rem}
+
 /* TIMELINE */
 .tl{position:relative;max-width:800px;margin:0 auto}
 .tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--p),var(--p2));transform:translateX(-50%)}
@@ -448,7 +470,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span></div>
           <div class="ptit">E-Commerce App</div>
           <p class="pdesc">Full-featured shopping app with product catalog, cart, Firebase Auth, Firestore, and Retrofit API integration. MVVM architecture.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/E-Commerce-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/E-Commerce-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-ecommerce')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
       <div class="pc2 fu" data-cat="android" style="transition-delay:.1s">
@@ -457,7 +479,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt ta">Android</span></div>
           <div class="ptit">Weather App</div>
           <p class="pdesc">Real-time weather using OpenWeather API. Location-based forecast, hourly &amp; weekly weather, Retrofit + MVVM architecture.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/Weather-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/Weather-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-weather')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
       <div class="pc2 fu" data-cat="flutter firebase" style="transition-delay:.2s">
@@ -466,7 +488,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt tf">Flutter</span><span class="pt tfi">Firebase</span></div>
           <div class="ptit">Society Management App</div>
           <p class="pdesc">Complete society management system with member registration, role-based access, Firestore backend, and Bengali language UI.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/Society-Management-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/Society-Management-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-society')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
       <div class="pc2 fu" data-cat="android" style="transition-delay:.3s">
@@ -475,7 +497,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt ta">Android</span></div>
           <div class="ptit">Notes App</div>
           <p class="pdesc">Clean notes app with Room Database, Kotlin Coroutines, LiveData, and Jetpack Compose UI. Offline-first architecture.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/Notes-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/Notes-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-notes')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
       <div class="pc2 fu" data-cat="android firebase" style="transition-delay:.4s">
@@ -484,7 +506,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span></div>
           <div class="ptit">Skin Doctor</div>
           <p class="pdesc">AI-powered skin disease detection app. Users capture skin images for instant analysis, doctor consultation booking, and treatment suggestions via Firebase backend.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/Skin-Doctor" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/Skin-Doctor" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-skin')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
       <div class="pc2 fu" data-cat="android firebase" style="transition-delay:.5s">
@@ -493,7 +515,7 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
           <div class="pts"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span></div>
           <div class="ptit">Madrasha Management App</div>
           <p class="pdesc">Complete madrasha management system with student enrollment, attendance tracking, fee management, teacher records, and Firebase backend.</p>
-          <div class="pls"><a href="https://github.com/siddiqurcse/Madrasha-Management-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a></div>
+          <div class="pls"><a href="https://github.com/siddiqurcse/Madrasha-Management-App" target="_blank" class="pl plg"><i class="fab fa-github"></i> GitHub</a><button class="pl pld" onclick="openModal('m-madrasha')"><i class="fas fa-info-circle"></i> Details</button></div>
         </div>
       </div>
     </div>
@@ -591,6 +613,235 @@ footer{background:var(--bg);border-top:1px solid var(--cb);padding:2.5rem 0;text
     </div>
   </div>
 </section>
+
+<!-- MODALS -->
+<div class="modal-ov" id="m-ecommerce" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🛒</span>
+      <button class="modal-close" onclick="closeModalById('m-ecommerce')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">E-Commerce App</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span><span class="pt tw">Kotlin</span></div>
+      <p class="modal-desc">A full-featured Android shopping application built with modern Android development practices. Users can browse products, manage cart, checkout, and track orders — all backed by Firebase and REST APIs.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Product catalog with categories, search & filters</li>
+          <li>Shopping cart with quantity management</li>
+          <li>Firebase Authentication (email & Google sign-in)</li>
+          <li>Firestore real-time database for products & orders</li>
+          <li>Retrofit integration with REST API</li>
+          <li>User profile & order history</li>
+          <li>Clean MVVM architecture with Repository pattern</li>
+          <li>Hilt dependency injection</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Kotlin</span><span class="mtech">Jetpack Compose</span><span class="mtech">MVVM</span>
+          <span class="mtech">Firebase Auth</span><span class="mtech">Firestore</span><span class="mtech">Retrofit</span>
+          <span class="mtech">Hilt</span><span class="mtech">Coroutines</span><span class="mtech">LiveData</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/E-Commerce-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="m-weather" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🌤️</span>
+      <button class="modal-close" onclick="closeModalById('m-weather')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Weather App</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tw">Kotlin</span></div>
+      <p class="modal-desc">A real-time weather application that fetches live weather data using the OpenWeather API. Provides current conditions, hourly and weekly forecasts based on the user's GPS location or searched city.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Real-time weather using OpenWeather API</li>
+          <li>GPS-based automatic location detection</li>
+          <li>City search with autocomplete</li>
+          <li>Hourly forecast (24 hours)</li>
+          <li>7-day weekly forecast</li>
+          <li>Weather details: humidity, wind speed, UV index</li>
+          <li>Dynamic backgrounds based on weather condition</li>
+          <li>Offline caching with Room Database</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Kotlin</span><span class="mtech">MVVM</span><span class="mtech">Retrofit</span>
+          <span class="mtech">OpenWeather API</span><span class="mtech">Coroutines</span><span class="mtech">LiveData</span>
+          <span class="mtech">Location Services</span><span class="mtech">Room DB</span><span class="mtech">Glide</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/Weather-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="m-society" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🏘️</span>
+      <button class="modal-close" onclick="closeModalById('m-society')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Society Management App</div>
+      <div class="modal-tags"><span class="pt tf">Flutter</span><span class="pt tfi">Firebase</span><span class="pt tw">Dart</span></div>
+      <p class="modal-desc">A comprehensive Flutter application for managing residential societies. Features role-based access for admins and members, full Bengali language UI, and real-time Firestore synchronization.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Member registration & approval workflow</li>
+          <li>Role-based access control (Admin / Member)</li>
+          <li>Monthly dues tracking & payment records</li>
+          <li>Announcements & notice board</li>
+          <li>Member directory with contact info</li>
+          <li>Bengali (Bangla) language UI throughout</li>
+          <li>PDF report generation for records</li>
+          <li>Real-time Firestore backend</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Flutter</span><span class="mtech">Dart</span><span class="mtech">Firebase Firestore</span>
+          <span class="mtech">Firebase Auth</span><span class="mtech">Provider</span><span class="mtech">Bengali UI</span>
+          <span class="mtech">PDF Generation</span><span class="mtech">Firebase Storage</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/Society-Management-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="m-notes" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">📝</span>
+      <button class="modal-close" onclick="closeModalById('m-notes')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Notes App</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tw">Kotlin</span></div>
+      <p class="modal-desc">A clean, offline-first notes application built entirely with Jetpack Compose. Uses Room Database for local persistence with full CRUD operations, color-coded notes, and smooth animations.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Create, read, update & delete notes</li>
+          <li>Color-coded notes for easy categorization</li>
+          <li>Search notes in real-time</li>
+          <li>Sort by date, title, or color</li>
+          <li>100% offline — Room Database storage</li>
+          <li>Smooth Jetpack Compose animations</li>
+          <li>Material Design 3 UI</li>
+          <li>Dark & light theme support</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Kotlin</span><span class="mtech">Jetpack Compose</span><span class="mtech">Room DB</span>
+          <span class="mtech">Coroutines</span><span class="mtech">Flow</span><span class="mtech">LiveData</span>
+          <span class="mtech">MVVM</span><span class="mtech">Material Design 3</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/Notes-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="m-skin" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🩺</span>
+      <button class="modal-close" onclick="closeModalById('m-skin')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Skin Doctor</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span><span class="pt tw">AI/ML</span></div>
+      <p class="modal-desc">An AI-powered Android application for skin disease detection. Users capture or upload skin images for instant analysis, receive disease identification, and can book consultations with doctors via Firebase backend.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Camera capture & gallery image upload</li>
+          <li>AI-based skin disease detection & classification</li>
+          <li>Detailed disease information & treatment suggestions</li>
+          <li>Doctor consultation booking system</li>
+          <li>Patient history & past analysis records</li>
+          <li>Firebase Auth for secure user accounts</li>
+          <li>Firestore backend for data storage</li>
+          <li>Firebase Storage for image uploads</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Kotlin</span><span class="mtech">Android</span><span class="mtech">ML Kit</span>
+          <span class="mtech">Firebase Auth</span><span class="mtech">Firestore</span><span class="mtech">Firebase Storage</span>
+          <span class="mtech">Camera2 API</span><span class="mtech">MVVM</span><span class="mtech">Coroutines</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/Skin-Doctor" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="m-madrasha" onclick="closeModal(event,this)">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-emoji">🕌</span>
+      <button class="modal-close" onclick="closeModalById('m-madrasha')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title">Madrasha Management App</div>
+      <div class="modal-tags"><span class="pt ta">Android</span><span class="pt tfi">Firebase</span><span class="pt tw">Kotlin</span></div>
+      <p class="modal-desc">A comprehensive Android application for managing madrasha operations. Covers student enrollment, daily attendance, fee collection, teacher records, class scheduling, and generates detailed reports.</p>
+      <div class="modal-section">
+        <h4>Key Features</h4>
+        <ul class="modal-features">
+          <li>Student enrollment & profile management</li>
+          <li>Daily attendance tracking with reports</li>
+          <li>Fee collection & payment history</li>
+          <li>Teacher records & salary management</li>
+          <li>Class & subject scheduling</li>
+          <li>Exam results & grade management</li>
+          <li>Role-based access (Admin / Teacher)</li>
+          <li>Firebase real-time backend & offline support</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h4>Tech Stack</h4>
+        <div class="modal-tech">
+          <span class="mtech">Kotlin</span><span class="mtech">Android</span><span class="mtech">Firebase Firestore</span>
+          <span class="mtech">Firebase Auth</span><span class="mtech">MVVM</span><span class="mtech">RecyclerView</span>
+          <span class="mtech">Coroutines</span><span class="mtech">MPAndroidChart</span><span class="mtech">Hilt</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://github.com/siddiqurcse/Madrasha-Management-App" target="_blank" class="btn bp"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -769,6 +1020,24 @@ for (let i = 0; i < 80; i++) pts.push(new P());
     }
   requestAnimationFrame(anim);
 })();
+
+/* ── MODALS ── */
+function openModal(id) {
+  document.getElementById(id).classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeModalById(id) {
+  document.getElementById(id).classList.remove('on');
+  document.body.style.overflow = '';
+}
+function closeModal(e, el) {
+  if (e.target === el) { el.classList.remove('on'); document.body.style.overflow = ''; }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-ov.on').forEach(m => { m.classList.remove('on'); document.body.style.overflow = ''; });
+  }
+});
 
 /* ── SMOOTH SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
